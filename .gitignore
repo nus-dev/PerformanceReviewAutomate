@@ -1,0 +1,12 @@
+# webstorm
+.idea
+
+# vscode
+.vscode/**/*
+.history/**/*
+
+# 기타
+node_modules
+
+# 최종빌드는 서버에서 처리 'ㅡ' 해당파일들은 로컬단독개발용으로 처리
+dist/
