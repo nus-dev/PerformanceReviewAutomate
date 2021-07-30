@@ -10,7 +10,7 @@ class WikiAgent extends BrowserAgent<User, Array<WikiDoc>> {
             const idInput = document.getElementById('os_username') as HTMLInputElement;
             const pwInput = document.getElementById('os_password') as HTMLInputElement;
             idInput.value = 'shjang';
-            pwInput.value = '17122112';
+            pwInput.value = '1712211';
             const loginButton = document.getElementById('loginButton') as HTMLInputElement;
             loginButton.click();
         });
@@ -28,17 +28,8 @@ class WikiAgent extends BrowserAgent<User, Array<WikiDoc>> {
                 xhr.send();
             });
         });
-        return JSON.parse(evalTitles).results;
-        // const a = js.results.map((result: any) => {
-        //     return {
-        //         space: result.container.name,
-        //         title: result.title,
-        //         id: result.id,
-        //         timestamp: result.metadata.currentuser.lastmodified.version.when
-        //     };
-        // });
 
-        // return a;
+        return JSON.parse(evalTitles).results;
     }
 }
 

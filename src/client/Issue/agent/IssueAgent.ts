@@ -1,7 +1,13 @@
-import { User } from '../../../common/user/model/User';
-import { Issue } from '../model/Issue';
+import {User} from '../../../common/user/model/User';
+import {Agent} from '../../../common/agent/Agent';
+import {WikiDoc} from '../../../common/user/model/WikiDoc';
+import { JiraIssue } from '../../../common/model/JiraIssue';
 
-class IssueAgent {
+class DocAgent extends Agent<User, Array<JiraIssue>> {
+    public async fetchData(user: User): Promise<Array<JiraIssue>> {
+        const response = await fetch(`/issues?id=${user.getId()}&pw=${user.getPassword()}`);
+        return await response.json();
+    }
 }
 
-export default new IssueAgent();
+export default new DocAgent();

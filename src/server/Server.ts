@@ -2,10 +2,10 @@ import express from 'express';
 import http from 'http';
 import path from 'path';
 import {User} from '../common/user/model/User';
-import WikiAgent from './wiki/agent/WikiAgent';
 import WikiDC from './wiki/dc/WikiDC';
-// import PuppeteerView from './puppeteer/PuppeteerView';
 import { WikiDoc } from '../common/user/model/WikiDoc';
+import JiraDC from './jira/dc/JiraDC';
+import { JiraIssue } from '../common/model/JiraIssue';
 
 class Server {
     private static port: number = 8080;
@@ -27,6 +27,13 @@ class Server {
         app.get('/docs', (req: express.Request, res: express.Response) => {
             WikiDC.fetchData(new User(String(req.query.id), String(req.query.pw))).then((docs: Array<WikiDoc>) => {
                 res.send(JSON.stringify(docs));
+            });
+        });
+
+        app.get('/issues', (req: express.Request, res: express.Response) => {
+            JiraDC.fetchData(new User(String(req.query.id), String(req.query.pw))).then((issues: Array<JiraIssue>) => {
+                console.log(issues[0]);
+                res.send(JSON.stringify(issues));
             });
         });
 
