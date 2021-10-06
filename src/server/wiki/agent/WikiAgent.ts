@@ -6,14 +6,14 @@ import { WikiDoc } from '../../../common/user/model/WikiDoc';
 class WikiAgent extends BrowserAgent<User, Array<WikiDoc>> {
     protected async evaluate(page: puppeteer.Page, key: User): Promise<Array<WikiDoc>> {
         await page.goto('https://wiki.miridih.com/login.action');
-        await page.evaluate(() => {
+        await page.evaluate((id: string, pw: string) => {
             const idInput = document.getElementById('os_username') as HTMLInputElement;
             const pwInput = document.getElementById('os_password') as HTMLInputElement;
-            idInput.value = 'shjang';
-            pwInput.value = '1712211';
+            idInput.value = id;
+            pwInput.value = pw;
             const loginButton = document.getElementById('loginButton') as HTMLInputElement;
             loginButton.click();
-        });
+        }, key.getId(), key.getPassword());
         await new Promise(res => setTimeout(res, 2000))
         const evalTitles = await page.evaluate(() => {
             return new Promise<any>((resolve, reject) => {

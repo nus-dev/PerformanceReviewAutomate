@@ -32,7 +32,6 @@ class Server {
 
         app.get('/issues', (req: express.Request, res: express.Response) => {
             JiraDC.fetchData(new User(String(req.query.id), String(req.query.pw))).then((issues: Array<JiraIssue>) => {
-                console.log(issues[0]);
                 res.send(JSON.stringify(issues));
             });
         });

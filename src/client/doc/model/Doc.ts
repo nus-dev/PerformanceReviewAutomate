@@ -6,6 +6,6 @@ export class Doc extends WikiDoc {
     }
 
     public getDate(): Date {
-        return new Date(this.metadata.currentuser.lastmodified.version.when);
+        return new Date(this.metadata.currentuser.lastmodified?.version.when ?? this.metadata.currentuser.lastcontributed.when);
     }
 }

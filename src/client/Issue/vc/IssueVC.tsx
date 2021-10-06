@@ -23,7 +23,7 @@ export class IssueVC extends Component<IssueVCProps, IssueVCStates> {
                 <thead>
                     <tr>
                         <th>작성시각</th>
-                        <th>{`문서 제목(링크)`}</th>
+                        <th>{`이슈 이름(링크)`}</th>
                     </tr>
                 </thead>
                 <tbody>
