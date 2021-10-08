@@ -14,7 +14,17 @@ class JiraAgent extends BrowserAgent<User, Array<JiraIssue>> {
             loginButton.click();
         }, key.getId(), key.getPassword());
         await new Promise(res => setTimeout(res, 2000))
-        await page.goto('https://jira.miridih.com/issues/?jql=project%20%3D%20UNICORN%20AND%20resolution%20in%20(Fixed%2C%20Done%2C%20%EC%99%84%EB%A3%8C)%20AND%20resolved%20%3E%3D%202021-04-14%20AND%20resolved%20%3C%3D%202021-07-06%20AND%20assignee%20in%20(currentUser())%20ORDER%20BY%20cf%5B10001%5D%20ASC%2C%20resolved%20DESC%2C%20fixVersion%20DESC%2C%20created%20ASC%2C%20status%20DESC');
+      
+        await page.goto('https://jira.miridih.com/issues/?jql=project%20%3D%20UNICORN%20AND%20resolution%20in%20(Fixed%2C%20Done%2C%20%EC%99%84%EB%A3%8C)%20AND%20resolved%20%3E%3D%202021-07-07%20AND%20resolved%20%3C%3D%202021-09-28%20AND%20assignee%20in%20(currentUser())%20ORDER%20BY%20cf%5B10001%5D%20ASC%2C%20resolved%20DESC%2C%20fixVersion%20DESC%2C%20created%20ASC%2C%20status%20DESC');
+        await page.evaluate(() => {
+            const btn = document.getElementById('layout-switcher-button');
+            btn.click();
+        });
+        await new Promise(res => setTimeout(res, 500));
+        await page.evaluate(() => {
+            (Array.from(document.getElementsByClassName('aui-list-item-link'))[1] as any).click();
+        });
+        await new Promise(res => setTimeout(res, 500));
         const jiraIssues = await page.evaluate(() => {
             const issueTable = document.getElementById('issuetable');
             const body = issueTable.getElementsByTagName('tbody')[0];
@@ -32,7 +42,6 @@ class JiraAgent extends BrowserAgent<User, Array<JiraIssue>> {
             }
             return issues;
         });
-
         return jiraIssues;
     }
 }

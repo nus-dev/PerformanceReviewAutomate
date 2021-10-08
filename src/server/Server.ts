@@ -25,13 +25,13 @@ class Server {
         app.use('/dist', express.static(path.join(basePath, 'dist')));
 
         app.get('/docs', (req: express.Request, res: express.Response) => {
-            WikiDC.fetchData(new User(String(req.query.id), String(req.query.pw))).then((docs: Array<WikiDoc>) => {
+            WikiDC.fetchData(new User(decodeURIComponent(String(req.query.id)), decodeURIComponent(String(req.query.pw)))).then((docs: Array<WikiDoc>) => {
                 res.send(JSON.stringify(docs));
             });
         });
 
         app.get('/issues', (req: express.Request, res: express.Response) => {
-            JiraDC.fetchData(new User(String(req.query.id), String(req.query.pw))).then((issues: Array<JiraIssue>) => {
+            JiraDC.fetchData(new User(decodeURIComponent(String(req.query.id)), decodeURIComponent(String(req.query.pw)))).then((issues: Array<JiraIssue>) => {
                 res.send(JSON.stringify(issues));
             });
         });
